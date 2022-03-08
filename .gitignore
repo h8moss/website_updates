@@ -1,2 +1,8 @@
 # local personal file to make running from a scheduled taks easier
 run.bat
+
+# python related
+__pycache__/**/*
+
+# vs-code
+.vscode/**/*
