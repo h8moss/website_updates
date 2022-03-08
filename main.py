@@ -90,7 +90,9 @@ def compare_day():
     current_day = datetime.datetime.today().day
     last_day = 0
     with open(LAST_DAY_PATH, 'r') as f:
-        last_day = int(f.read())
+        text = f.read()
+        if (text != ''):
+            last_day = int(f.read())
 
     return last_day != current_day
 
