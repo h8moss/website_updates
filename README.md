@@ -48,7 +48,10 @@ schtasks /create /sc HOURLY /tn <SOME NAME> /tr "C:\full\path\to\project\python.
 ```
 This will make the check run every hour.
 
-I also recommend you make the command available even if the user is ont logged in, this will prevent a command line window to appear when the command runs. To do this, open the task scheduler app, find the task, and mark the correct option, it should be very simple, but look up a tutorial if you don't know how to do it
+I also recommend you make the command available even if the user is ont logged in, this will prevent a command line window to appear when the command runs. To do this, open the task scheduler app, find the task, and mark the correct option.
+
+![image](https://user-images.githubusercontent.com/43828996/157281253-e2962ed8-308d-45db-b44f-364e9283e9c7.png)
+
 
 ### Linux and Mac OS
 
