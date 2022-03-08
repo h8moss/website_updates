@@ -2,37 +2,18 @@ import datetime
 import requests
 import smtplib
 import ssl
-import os
-
-CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-CONF_PATH = CURRENT_DIR + '\\conf.txt'
-LAST_DAY_PATH = CURRENT_DIR + '\\last_day.txt'
-LAST_RESPONSE_PATH = CURRENT_DIR + '\\last_response.txt'
-LOG_PATH = CURRENT_DIR + '\\.log'
-
-with open(CONF_PATH, 'r') as f:
-    global WEBSITE
-    global USERNAME
-    global PASSWORD
-    global TARGET_MAILS
-
-    text = f.read()
-    text = text.split('\n')
-    WEBSITE = text[0]
-    USERNAME = text[1]
-    PASSWORD = text[2]
-    TARGET_MAILS = text[3:]
+import constants
 
 
 def generate_log(old_data, new_data, equal):
     target = ''
-    if (len(TARGET_MAILS) > 3):
-        for _target in TARGET_MAILS[:3]:
+    if (len(constants.TARGET_MAILS) > 3):
+        for _target in constants.TARGET_MAILS[:3]:
             target += str(_target) + ' ,'
         target = target[:-1]
-        target += f'and {len(TARGET_MAILS) - 3} more'
+        target += f'and {len(constants.TARGET_MAILS) - 3} more'
     else:
-        for _target in TARGET_MAILS:
+        for _target in constants.TARGET_MAILS:
             target += str(_target) + ' ,'
         target = target[:-1]
 
@@ -40,7 +21,7 @@ def generate_log(old_data, new_data, equal):
     textA = f'''\
 
 {date}
-SENT UPDATE TO {target} FROM {USERNAME}
+SENT UPDATE TO {target} FROM {constants.USERNAME}
 
 OLD DATA:
 {old_data}
@@ -58,7 +39,7 @@ DATA DID NOT CHANGE; DID NOT SEND MAIL
 --------------------------------------------------------------------------------
 '''
 
-    with open(LOG_PATH, 'a') as f:
+    with open(constants.LOG_PATH, 'a') as f:
         if (not equal):
             f.write(textA)
         else:
@@ -66,33 +47,34 @@ DATA DID NOT CHANGE; DID NOT SEND MAIL
 
 
 def get_data():
-    r = requests.get(WEBSITE)
+    r = requests.get(constants.WEBSITE)
     return r.text
 
 
 def get_old_data():
     data = ''
-    with open(LAST_RESPONSE_PATH, 'r') as f:
+    with open(constants.LAST_RESPONSE_PATH, 'r') as f:
         data = f.read()
     return data
 
 
 def update_data(data):
     current_day = datetime.datetime.today().day
-    with open(LAST_DAY_PATH, 'w+') as f:
+    with open(constants.LAST_DAY_PATH, 'w+') as f:
         f.write(str(current_day))
 
-    with open(LAST_RESPONSE_PATH, 'w+') as f:
+    with open(constants.LAST_RESPONSE_PATH, 'w+') as f:
         f.write(str(data))
 
 
 def compare_day():
     current_day = datetime.datetime.today().day
     last_day = 0
-    with open(LAST_DAY_PATH, 'r') as f:
-        text = f.read()
-        if (text != ''):
+    with open(constants.LAST_DAY_PATH, 'r') as f:
+        try:
             last_day = int(f.read())
+        except:
+            last_day = 0
 
     return last_day != current_day
 
@@ -103,7 +85,7 @@ def send_mail():
     message = f'''\
 Subject: Website updated
 
-I am your website update checker, here to tell you that {WEBSITE} has been updated
+I am your website update checker, here to tell you that {constants.WEBSITE} has been updated
 
 This message was sent by the website checker, TODO: put the github link here
 If you don't know why you received this mail, please ignore the mail and add this account to your spam folder
@@ -112,8 +94,8 @@ If you don't know why you received this mail, please ignore the mail and add thi
     context = ssl.create_default_context()
 
     with smtplib.SMTP_SSL('smtp.gmail.com', port, context=context) as server:
-        server.login(USERNAME, PASSWORD)
-        server.sendmail(USERNAME, TARGET_MAILS, message)
+        server.login(constants.USERNAME, constants.PASSWORD)
+        server.sendmail(constants.USERNAME, constants.TARGET_MAILS, message)
 
 
 def main():
