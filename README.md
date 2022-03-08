@@ -5,6 +5,10 @@ Whenever this script is run, it will compare the specified website to a cached v
 
 Currently the file will send at most one mail a day, but I am planning to allow that to be customizable as well.
 
+## How it works
+
+This script will open the specified domain, fetch the text of said domain, and cache it, if it already has a cached response, it will also compare the previous cache to the current response and send an email if they are different. Currently the app will send at most 1 mail per day, after that it will stop checking for updates.
+
 ## Installation
 
 Installation is relatively simple, but it is necessary to make a new mail account for the script to use (you could use your own account, but I can't recommend it)
@@ -37,18 +41,21 @@ SomeOtherMail@gmail.com
 
 ## Setting up a cron job
 
-It is important to know that this script will only check if you run it (it is also set up to only check once a day at most less time is WIP!), which means you would have to run it manually each time .
-In order to avoid this, you should set up this script to run automatically, this section explains how to do so
+This script will only check for a website update when run manually, making the script about as good as just accessing the page itself.
+In order to avoid this, you should set up this script to run automatically every certain time, this section explains how to do so
 
 ### Windows
 
 In windows, we can set up a scheduled task using the schtasks command, which takes a few important parameters:
 ```ps
-schtasks /create /sc HOURLY /tn <SOME NAME> /tr "C:\full\path\to\project\python.exe C:\full\path\to\project\main.py" 
+schtasks /create /sc HOURLY /tn <SOME NAME> /tr "C:\full\path\to\python.exe C:\full\path\to\project\main.py" 
 ```
 This will make the check run every hour.
 
-I also recommend you make the command available even if the user is ont logged in, this will prevent a command line window to appear when the command runs. To do this, open the task scheduler app, find the task, and mark the correct option, it should be very simple, but look up a tutorial if you don't know how to do it
+I also recommend you make the command available even if the user is not logged in, this will prevent a command line window to appear when the command runs. To do this, open the task scheduler app, find the task, and mark the correct option.
+
+![image](https://user-images.githubusercontent.com/43828996/157281253-e2962ed8-308d-45db-b44f-364e9283e9c7.png)
+
 
 ### Linux and Mac OS
 
