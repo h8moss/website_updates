@@ -7,7 +7,7 @@ Currently the file will send at most one mail a day, but I am planning to allow 
 
 ## Installation
 
-Installation is relatively simple, but it is necesary to make a new mail account for the script to use (you could use your own account, but I can't recommend it)
+Installation is relatively simple, but it is necessary to make a new mail account for the script to use (you could use your own account, but I can't recommend it)
 
 Once you have created a new mail account, it is also important to allow python to access it, this is done differently depending on your provider, so you will have to do some research.
 For gmail, you need to set "allow less secure apps" to ON in order to use this service.
@@ -20,7 +20,7 @@ On the first line of the conf file, write the URL you want to check for changes
 
 Then, on the next line, the mail account you created
 
-Then the password of said mail account, this is why we reccomend you use an account separate from your own, although as long as you don't show this file to anyone you should be safe
+Then the password of said mail account, this is why we recommend you use an account separate from your own, although as long as you don't show this file to anyone you should be safe
 
 Then every line onwards should contain a destination email, to forward the data towards.
 
@@ -37,7 +37,7 @@ SomeOtherMail@gmail.com
 
 ## Setting up a cron job
 
-It is important to know that this script will only check if you run it (it is also set up to only check once a day at most less time is WIP!), which means you would have to run it mannually each time .
+It is important to know that this script will only check if you run it (it is also set up to only check once a day at most less time is WIP!), which means you would have to run it manually each time .
 In order to avoid this, you should set up this script to run automatically, this section explains how to do so
 
 ### Windows
@@ -48,9 +48,11 @@ schtasks /create /sc HOURLY /tn <SOME NAME> /tr "C:\full\path\to\project\python.
 ```
 This will make the check run every hour.
 
+I also recommend you make the command available even if the user is ont logged in, this will prevent a command line window to appear when the command runs. To do this, open the task scheduler app, find the task, and mark the correct option, it should be very simple, but look up a tutorial if you don't know how to do it
+
 ### Linux and Mac OS
 
-Setting up a cron job on Linux and mac is similarly quite easy, we just need to open the cron tab by running the followinf command:
+Setting up a cron job on Linux and mac is similarly quite easy, we just need to open the cron tab by running the following command:
 ```
 crontab -e
 ```
