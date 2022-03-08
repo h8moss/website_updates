@@ -87,7 +87,7 @@ Subject: Website updated
 
 I am your website update checker, here to tell you that {constants.WEBSITE} has been updated
 
-This message was sent by the website checker, TODO: put the github link here
+This message was sent by the website checker, check out the github page for more info: https://github.com/h8moss/website_updates
 If you don't know why you received this mail, please ignore the mail and add this account to your spam folder
 '''
 
