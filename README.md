@@ -1,43 +1,30 @@
 # website updates
 A python script that sends you an email if a website changes.
 
-Whenever this script is run, it will compare the specified website to a cached version of said website and it will send an email if it can find any changes.
+Whenever this script is run, it will compare the specified website to a cached version of said website and it will send desktop notification if it can find any changes.
 
-Currently the file will send at most one mail a day, but I am planning to allow that to be customizable as well.
+Currently the file will send at most one notification per day, but I am planning to allow that to be customizable as well.
 
 ## How it works
 
-This script will open the specified domain, fetch the text of said domain, and cache it, if it already has a cached response, it will also compare the previous cache to the current response and send an email if they are different. Currently the app will send at most 1 mail per day, after that it will stop checking for updates.
+This script will open the specified domain, fetch the text of said domain, and cache it, if it already has a cached response, it will also compare the previous cache to the current response and send an notification if they are different. Currently the app will send at most 1 notification per day, after that it will stop checking for updates.
 
 ## Installation
 
-Installation is relatively simple, but it is necessary to make a new mail account for the script to use (you could use your own account, but I can't recommend it)
+Installation is relatively simple
 
-Once you have created a new mail account, it is also important to allow python to access it, this is done differently depending on your provider, so you will have to do some research.
-For gmail, you need to set "allow less secure apps" to ON in order to use this service.
+all you have to do is clone this repository into a machine, and edit the `conf.txt` file
 
-![image](https://user-images.githubusercontent.com/43828996/157164093-fe4b6ccd-d8ca-44b3-81ce-1b084f822efc.png)
+The first and only line of said file should have the url of the desired website
 
-Once this is done, you should clone this repository into a machine, and edit the `conf.txt` file
-
-On the first line of the conf file, write the URL you want to check for changes
-
-Then, on the next line, the mail account you created
-
-Then the password of said mail account, this is why we recommend you use an account separate from your own, although as long as you don't show this file to anyone you should be safe
-
-Then every line onwards should contain a destination email, to forward the data towards.
-
-Here is an example:
+You should also have python installed in the machine, create and activate a new virtual environment and run the following command:
 
 ```
-https://youtube.com/channel/ludwig/videos
-myRobotAccount@gmail.com
-password12345
-myPersonalMail@gmail.com
-myFriendsPersonalMail@gmail.com
-SomeOtherMail@gmail.com
+python -r ./requirements.txt
 ```
+inside of this repository.
+
+Now you should be able to run this script by running `python ./main.py`
 
 ## Setting up a cron job
 
