@@ -3,6 +3,7 @@ import requests
 import smtplib
 import ssl
 import constants
+from plyer import notification
 
 
 def generate_log(old_data, new_data, equal):
@@ -79,23 +80,18 @@ def compare_day():
     return last_day != current_day
 
 
-def send_mail():
-    port = 465
+def send_notification():
 
-    message = f'''\
-Subject: Website updated
-
-I am your website update checker, here to tell you that {constants.WEBSITE} has been updated
-
-This message was sent by the website checker, check out the github page for more info: https://github.com/h8moss/website_updates
-If you don't know why you received this mail, please ignore the mail and add this account to your spam folder
-'''
-
-    context = ssl.create_default_context()
-
-    with smtplib.SMTP_SSL('smtp.gmail.com', port, context=context) as server:
-        server.login(constants.USERNAME, constants.PASSWORD)
-        server.sendmail(constants.USERNAME, constants.TARGET_MAILS, message)
+    title = 'Website updated!'
+    message = f'The website you are expecting: {constants.WEBSITE}, has been updated since last check'
+    
+    notification.notify(
+        title=title,
+        message=message,
+        app_icon=None,
+        timeout=10,
+        toast=False
+    )
 
 
 def main():
@@ -106,7 +102,7 @@ def main():
         generate_log(old_data, data, is_data_equal)
         if not is_data_equal:
             update_data(data)
-            send_mail()
+            send_notification()
 
 
 if __name__ == '__main__':
