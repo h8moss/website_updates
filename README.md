@@ -34,7 +34,7 @@ In order to avoid this, you should set up this script to run automatically every
 ### Windows
 
 In windows, we can set up a scheduled task using the schtasks command, which takes a few important parameters:
-```ps
+```cmd
 schtasks /create /sc HOURLY /tn <SOME NAME> /tr "C:\full\path\to\python.exe C:\full\path\to\project\main.py" 
 ```
 This will make the check run every hour.
@@ -47,7 +47,7 @@ I also recommend you make the command available even if the user is not logged i
 ### Linux and Mac OS
 
 Setting up a cron job on Linux and mac is similarly quite easy, we just need to open the cron tab by running the following command:
-```
+```bash
 crontab -e
 ```
 This will open the crontab, which is where your cron jobs are stored, to add a new one, go to the last line and add the following (for an hourly check)
