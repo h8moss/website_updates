@@ -8,13 +8,7 @@ LOG_PATH = CURRENT_DIR + '\\.log'
 
 with open(CONF_PATH, 'r') as f:
     global WEBSITE
-    global USERNAME
-    global PASSWORD
-    global TARGET_MAILS
 
     text = f.read()
     text = text.split('\n')
     WEBSITE = text[0]
-    USERNAME = text[1]
-    PASSWORD = text[2]
-    TARGET_MAILS = text[3:]
