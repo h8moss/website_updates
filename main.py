@@ -1,28 +1,15 @@
 import datetime
-import requests
-import smtplib
-import ssl
 import constants
+import requests
 from plyer import notification
 
 
 def generate_log(old_data, new_data, equal):
-    target = ''
-    if (len(constants.TARGET_MAILS) > 3):
-        for _target in constants.TARGET_MAILS[:3]:
-            target += str(_target) + ' ,'
-        target = target[:-1]
-        target += f'and {len(constants.TARGET_MAILS) - 3} more'
-    else:
-        for _target in constants.TARGET_MAILS:
-            target += str(_target) + ' ,'
-        target = target[:-1]
-
     date = str(datetime.datetime.today())
     textA = f'''\
 
 {date}
-SENT UPDATE TO {target} FROM {constants.USERNAME}
+SENT UPDATE NOTIFICATION FOR {constants.WEBSITE}
 
 OLD DATA:
 {old_data}
@@ -35,7 +22,7 @@ NEW DATA:
     textB = f'''\
 
 {date}
-DATA DID NOT CHANGE; DID NOT SEND MAIL
+DATA AT {constants.WEBSITE} DID NOT CHANGE; DID NOT SEND MAIL
 
 --------------------------------------------------------------------------------
 '''
